@@ -1,20 +1,22 @@
-export default function Square() {
+export default function Board() {
+  let numbs = []
+  for (let i=1; i<=10; i++)
+  {
+      numbs.push(i)
+  }
+
+  let row = [0,1,2].map((i) => <button className="square" id={`square${i}`}>X</button>)
+
   return (
   <>
     <div className="board-row">
-      <button className="square">X</button>
-      <button className="square">X</button>
-      <button className="square">X</button>
+      {row}
     </div>
     <div className="board-row">
-      <button className="square">X</button>
-      <button className="square">X</button>
-      <button className="square">X</button>
+      {row}
     </div>
     <div className="board-row">
-      <button className="square">X</button>
-      <button className="square">X</button>
-      <button className="square">X</button>
+      {row}
     </div>        
   </>)
 }
