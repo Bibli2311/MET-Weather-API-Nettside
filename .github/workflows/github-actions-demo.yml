@@ -1,18 +1,13 @@
-name: Github actions Demo
-run-name: ${{ github.actor}} is testing out Github actions
+name: Display version of Bats testing framework
+run-name: ${{ github.actor}} is learnig Github Actions
 on: [push]
 jobs:
-   Explore-Github-Actions:
+   check-bats-version:
       runs-on: ubuntu-latest
       steps:
-        - run: echo "the job was automatically triggered by a ${{ github.event_name}} event."
-        - run: echo "This job is now running on a ${{ runner.os}} server hosted by Github!"
-        - run: echo "The name of your branch is ${{ github.ref }} and your repo is ${{ github.repository }}"
-        - name: Check out repo code
-          uses: actions/checkout@v3
-        - run: echo "the ${{ github.repository }} repo has been cloned by the runner."
-        - run: echo "THe workflow is now ready to test your code on the runner"
-        - name: List files in the repository
-          run: |
-            ls ${{ github.workspace }}
-        - run: echo "This job's status is ${{ job.status }}."
+         - uses: actions/checkout@v3
+         - uses: actions/setup-node@v3
+           with:
+             node-version: '14'
+         - run: npm install -g bats
+         - run: bats -v
