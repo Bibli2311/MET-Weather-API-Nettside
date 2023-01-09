@@ -6,7 +6,7 @@ export default function Board() {
   }
 
   let row = [0,1,2].map((i) => <button className="square" id={`square${i}`}>X</button>)
-
+   
   return (
   <>
     <div className="board-row">
