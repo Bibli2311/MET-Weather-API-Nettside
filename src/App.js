@@ -1,45 +1,32 @@
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
 
-export default function Board() {
-  let numbs = []
-  for (let i=1; i<=10; i++)
-  {
-      numbs.push(i)
-  }
+function App() {
+  const [nodeContent, setNodeContent] = useState([]);
 
-  let row = [0,1,2].map((i) => <button className="square" id={`square${i}`}>X</button>)
+  useEffect(() => {
+    fetch("https://api.met.no/weatherapi/metalerts/1.1?show=all")
+      .then((resp) => resp.text())
+      .then((result) => {
+        let xmlData = new window.DOMParser().parseFromString(result, "text/xml");
 
-  let xmlResult = "";
-  fetch("https://api.met.no/weatherapi/metalerts/1.1?show=all")
-  .then((resp) => resp.text())
-  .then(result => 
-    {
-      let xmlData = new window.DOMParser()
-           .parseFromString(result, "text/xml")
-      console.log(xmlData)
+        let titleArray = xmlData.getElementsByTagName("item");
 
-      let titleArray = xmlData.getElementsByTagName("item")
+        let nodes = [];
+        let elem = titleArray[0];
+        elem.childNodes.forEach((node) => {
+          nodes.push(node.textContent);
+        });
+        setNodeContent(nodes);
+      });
+  }, []);
 
-      let elem = titleArray[0]
-      //console.log(elem.textContent)
-      elem.childNodes.forEach((node) => 
-      {
-          console.log(node.textContent)
-      })
-    })
-
-
-   
   return (
-  <>
-    <div className="board-row">
-      {row}
+    <div>
+      {nodeContent.map((content, index) => (
+        <p key={index}>{content}</p>
+      ))}
     </div>
-    <div className="board-row">
-      {row}
-    </div>
-    <div className="board-row">
-      {row}
-    </div>        
-  </>)
+  );
 }
+
+export default App
