@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import WeatherIncident from "./WeatherIncident";
 
  // function that sorts an array of items by danger level
 function sortByDangerLevel(array) 
@@ -27,6 +28,7 @@ function sortByDangerLevel(array)
 
 function App() {
   const [nodeContent, setNodeContent] = useState([]);
+  const [realIncident, setWeatherIncident] = useState(<></>)
 
   useEffect(() => {
     fetch("https://api.met.no/weatherapi/metalerts/1.1?show=all")
@@ -35,9 +37,11 @@ function App() {
         let xmlData = new window.DOMParser().parseFromString(result, "text/xml");
         let titleArray = xmlData.getElementsByTagName("item");
         console.log(titleArray)
-        let orangeIncidents = sortByDangerLevel(titleArray)
+        let orangeIncidents = sortByDangerLevel(titleArray)    
 
         let nodes = [];
+        
+        setWeatherIncident(<WeatherIncident sortedIncident={orangeIncidents[0]}></WeatherIncident>)      
 
         // loop through each incident to extract the node content and add it to the nodes array
         orangeIncidents.forEach(value => 
@@ -58,6 +62,7 @@ function App() {
       {nodeContent.map((content, index) => (
         <p key={index}>{content}</p>
       ))}
+      {realIncident}
     </div>
   );
 }
