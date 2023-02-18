@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from "react";
 
-function sortByDangerLevel(array)
+ // function that sorts an array of items by danger level
+function sortByDangerLevel(array) 
 {
   let sortedIncidents = []
-  let dangerLevelIncidents = []
   let keyValues = Object.keys(array)
   let incident;
   let dangerLevel = ""
 
+  // loop through each item in the array to find the ones with danger level of "nivå" and "oransje"
   for (let i = 0; i < keyValues.length; i++)
-  {
-    
+  {    
     incident = array[keyValues[i]].getElementsByTagName("title")[0]
-    dangerLevel = incident.textContent.split(",")[1]
-    if (dangerLevel.includes("nivå"))
-    {
 
-        dangerLevelIncidents.push(array[keyValues[i]])
+    // get the danger level from the title element
+    // example text that can be shown: "Kansellert Sterk ising på skip, oransje nivå, B4, 18 februar"
+    dangerLevel = incident.textContent.split(",")[1]
+    // check if the danger level includes "nivå" and "oransje"
+    if (dangerLevel.includes("nivå") && dangerLevel.includes("oransje"))
+    {
+      sortedIncidents.push(array[keyValues[i]])
     }
   }
-
-  dangerLevelIncidents.forEach((value) => 
-  {
-      incident = value.getElementsByTagName("title")[0]
-      dangerLevel = incident.textContent.split(",")[1]
-      if (dangerLevel.includes("oransje"))
-      {
-        sortedIncidents.push(value)
-      }
-  })
-
   return sortedIncidents
-
 }
 
 function App() {
@@ -47,13 +38,8 @@ function App() {
         let orangeIncidents = sortByDangerLevel(titleArray)
 
         let nodes = [];
-        /*
-        let elem = titleArray[0];
-        elem.childNodes.forEach((node) => {
-          nodes.push(node.textContent);
-        });
-        setNodeContent(nodes);
-*/
+
+        // loop through each incident to extract the node content and add it to the nodes array
         orangeIncidents.forEach(value => 
           {
               value.childNodes.forEach(node => 
