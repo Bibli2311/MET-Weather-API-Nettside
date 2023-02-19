@@ -1,11 +1,8 @@
 function WeatherIncident(props)
 {
     let pTags = []
-    
-    
+    //convert props.sortedIncidents into an array
     let apiData = Array.from(props.sortedIncident.childNodes)
-
-    console.log(apiData)
 
     apiData.forEach((htmlElement) => 
     {
@@ -22,7 +19,6 @@ function WeatherIncident(props)
 
     return (
         <>
-        <p key={-2}>{"weatherICNDI"}</p>
         {htmlList}</>
     )
 }

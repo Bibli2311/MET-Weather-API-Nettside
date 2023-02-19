@@ -28,7 +28,7 @@ function sortByDangerLevel(array)
 
 function App() {
   const [nodeContent, setNodeContent] = useState([]);
-  const [realIncident, setWeatherIncident] = useState(<></>)
+  const [incidentList, setWeatherIncident] = useState([])
 
   useEffect(() => {
     fetch("https://api.met.no/weatherapi/metalerts/1.1?show=all")
@@ -41,17 +41,20 @@ function App() {
 
         let nodes = [];
         
-        setWeatherIncident(<WeatherIncident sortedIncident={orangeIncidents[0]}></WeatherIncident>)      
+       let tmpIncidentList = []      
 
         // loop through each incident to extract the node content and add it to the nodes array
-        orangeIncidents.forEach(value => 
+        orangeIncidents.forEach((value, index) => 
           {
+             tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>)
+/*
               value.childNodes.forEach(node => 
                 {
                     nodes.push(node.textContent)
-                })
+                })*/
           })
-        setNodeContent(nodes)
+        //setNodeContent(nodes)
+        setWeatherIncident(tmpIncidentList)
 
       });
 
@@ -59,10 +62,7 @@ function App() {
 
   return (
     <div>
-      {nodeContent.map((content, index) => (
-        <p key={index}>{content}</p>
-      ))}
-      {realIncident}
+      {incidentList}
     </div>
   );
 }
