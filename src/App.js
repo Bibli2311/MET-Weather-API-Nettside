@@ -26,34 +26,47 @@ function sortByDangerLevel(array)
   return sortedIncidents
 }
 
+async function fetchData(url)
+{
+  try
+  {
+    const resp = await fetch(url);
+    if (resp.ok)
+    {
+      let respTxt = await resp.text()
+      return new window.DOMParser().parseFromString(respTxt, "text/xml");
+    }
+    throw new Error("Error with network");  
+  }
+  catch (error)
+  {
+    console.error(error)
+  }
+}
+
 function App() {
   const [incidentList, setWeatherIncident] = useState([])
 
   useEffect(() => {
-    fetch("https://api.met.no/weatherapi/metalerts/1.1?show=all")
-        .then((resp) => {
-            if (resp.ok) {
-                return resp.text();
-            }
-            throw new Error("Error with network");
-        })
-        .then((result) => {
-            let xmlData = new window.DOMParser().parseFromString(result, "text/xml");
-            let titleArray = xmlData.getElementsByTagName("item");
-            console.log(titleArray);
-            let orangeIncidents = sortByDangerLevel(titleArray);
-
-            let tmpIncidentList = [];
-
-            // loop through each incident to extract the node content and add it to the nodes array
-            orangeIncidents.forEach((value, index) => {
-                tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>);
-            });
-            setWeatherIncident(tmpIncidentList);
-        })
-        .catch((error) => console.log(error));
-  }, []);
-
+   
+    fetchData("https://api.met.no/weatherapi/metalerts/1.1?show=all")
+    .then((xmlData) =>
+    {
+        let tmp = xmlData
+        let titleArray = xmlData.getElementsByTagName("item");
+        console.log(titleArray);
+        let orangeIncidents = sortByDangerLevel(titleArray);
+  
+        let tmpIncidentList = [];
+  
+        // loop through each incident to extract the node content and add it to the nodes array
+        orangeIncidents.forEach((value, index) => {
+            tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>);
+        });
+        setWeatherIncident(tmpIncidentList);
+      })
+      
+    }, [])
    
 
   return (

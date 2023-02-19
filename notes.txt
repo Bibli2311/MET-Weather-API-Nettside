@@ -2,4 +2,43 @@
 
 https://jestjs.io/docs/tutorial-react
 
+install react-test-renderer
+npm i -D react-test-renderer
 
+*****ERRORS*****
+
+async function getData()
+{
+
+	fetch(url)
+	.then((resp) =>
+	{
+		if (resp.ok)
+		{
+			let responseText = resp.text()  //<-- this is a promise, will get error:
+							//"'await' expressions are only allowed within async functions and at the top levels of modules."
+		}
+	}
+
+}
+
+solution is to make the callback inside fetch async!
+fetch(url)
+.then(async (resp) =>
+{})
+
+///FORGOR TO RETURN
+
+async function fetchData(url)
+{
+  fetch(url)
+  .then(async (resp) => {
+    if (resp.ok) {
+        
+        let respTxt = await resp.text()
+        return new window.DOMParser().parseFromString(respTxt, "text/xml");
+    }
+    throw new Error("Error with network");
+  })
+  .catch(error => console.error(error))
+}
