@@ -31,26 +31,30 @@ function App() {
 
   useEffect(() => {
     fetch("https://api.met.no/weatherapi/metalerts/1.1?show=all")
-      .then((resp) => resp.text())
-      .then((result) => {
-        let xmlData = new window.DOMParser().parseFromString(result, "text/xml");
-        let titleArray = xmlData.getElementsByTagName("item");
-        console.log(titleArray)
-        let orangeIncidents = sortByDangerLevel(titleArray)    
-        
-       let tmpIncidentList = []      
+        .then((resp) => {
+            if (resp.ok) {
+                return resp.text();
+            }
+            throw new Error("Error with network");
+        })
+        .then((result) => {
+            let xmlData = new window.DOMParser().parseFromString(result, "text/xml");
+            let titleArray = xmlData.getElementsByTagName("item");
+            console.log(titleArray);
+            let orangeIncidents = sortByDangerLevel(titleArray);
 
-        // loop through each incident to extract the node content and add it to the nodes array
-        orangeIncidents.forEach((value, index) => 
-          {
-             tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>)
+            let tmpIncidentList = [];
 
-          })
-        setWeatherIncident(tmpIncidentList)
-
-      });
-
+            // loop through each incident to extract the node content and add it to the nodes array
+            orangeIncidents.forEach((value, index) => {
+                tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>);
+            });
+            setWeatherIncident(tmpIncidentList);
+        })
+        .catch((error) => console.log(error));
   }, []);
+
+   
 
   return (
     <div>
