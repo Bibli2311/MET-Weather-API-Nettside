@@ -29,9 +29,14 @@ fetch(url)
 
 ///FORGOR TO RETURN
 
+
+This function can return undefined (or it always will I think)
+
 async function fetchData(url)
 {
-  fetch(url)
+  fetch(url)     //fetch() returns a promise, but I am not waiting for it to finish
+		 //and there is no explicit place the function returns.
+		 //(YES I return from the promise, but the "fetchData()" function does not have a return statement
   .then(async (resp) => {
     if (resp.ok) {
         
@@ -41,4 +46,23 @@ async function fetchData(url)
     throw new Error("Error with network");
   })
   .catch(error => console.error(error))
+}
+
+This is better:
+async function fetchData(url)
+{
+  try
+  {
+    const resp = await fetch(url);
+    if (resp.ok)
+    {
+      let respTxt = await resp.text()
+      return new window.DOMParser().parseFromString(respTxt, "text/xml");
+    }
+    throw new Error("Error with network");  
+  }
+  catch (error)
+  {
+    console.error(error)
+  }
 }
