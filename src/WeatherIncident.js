@@ -1,7 +1,7 @@
 function WeatherIncident(props)
 {
     let pTags = []
-    //convert props.sortedIncidents into an array
+
     let apiData = Array.from(props.sortedIncident.childNodes)
 
     apiData.forEach((htmlElement) => 
