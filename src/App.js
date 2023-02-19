@@ -27,7 +27,6 @@ function sortByDangerLevel(array)
 }
 
 function App() {
-  const [nodeContent, setNodeContent] = useState([]);
   const [incidentList, setWeatherIncident] = useState([])
 
   useEffect(() => {
@@ -38,8 +37,6 @@ function App() {
         let titleArray = xmlData.getElementsByTagName("item");
         console.log(titleArray)
         let orangeIncidents = sortByDangerLevel(titleArray)    
-
-        let nodes = [];
         
        let tmpIncidentList = []      
 
@@ -47,13 +44,8 @@ function App() {
         orangeIncidents.forEach((value, index) => 
           {
              tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>)
-/*
-              value.childNodes.forEach(node => 
-                {
-                    nodes.push(node.textContent)
-                })*/
+
           })
-        //setNodeContent(nodes)
         setWeatherIncident(tmpIncidentList)
 
       });
