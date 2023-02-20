@@ -5,6 +5,8 @@ import { fetchData } from "./HelperFunctions";
 
 import DropdownSubmit from "./Drowdownbar";
 
+import { dangerLevelValues } from "./constants";
+
 
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
 function createIncidentList(incidentList)
@@ -54,7 +56,7 @@ function App() {
 
   return (
     <div>
-      <DropdownSubmit dangerLevelFunc={setDangerLevel}></DropdownSubmit>
+      <DropdownSubmit dangerLevelFunc={setDangerLevel} valuesOfDangerLevel={dangerLevelValues}></DropdownSubmit>
       {incidentList}
       
     </div>

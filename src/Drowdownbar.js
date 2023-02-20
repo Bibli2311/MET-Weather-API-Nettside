@@ -1,9 +1,11 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 
 function DropdownSubmit(props) {
 
+  const [optionTags, setOptionTags] = useState([])
   const handleDropdownChange = (event) => {
-    if (props.dangerLevelFunc === undefined)
+    if (props.dangerLevelFunc === undefined || props.valuesOfDangerLevel === undefined)
     {
         console.error("Cannot retrieve React hook from prop. Look at the prop name when Dropdownbar is rendered.")
     }
@@ -11,14 +13,26 @@ function DropdownSubmit(props) {
     props.dangerLevelFunc(event.target.value)
   };
 
+
+  //run useEffect only once
+  useEffect(() =>
+  {
+    let tmpOptionTag = []
+    props.valuesOfDangerLevel.map(value =>
+    {
+        tmpOptionTag.push(
+          <option key={value} value={value}>{value}</option>
+        )
+    })
+    setOptionTags(tmpOptionTag)
+  }, [])
+
+
   return (
     <div>
           Select an option:
           <select value={""} onChange={handleDropdownChange}>
-            <option value="">--Please choose an option--</option>
-            <option value="gult">Gult</option>
-            <option value="oransje">Oransje</option>
-            <option value="rødt">Rødt</option>
+            {optionTags}
           </select>
     </div>
   );
