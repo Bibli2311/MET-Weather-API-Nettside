@@ -1,12 +1,13 @@
 
 
  // function that sorts an array of items by danger level
- function sortByDangerLevel(array) 
+ function sortByDangerLevel(array, dangerLevel) 
  {
    let sortedIncidents = []
    let keyValues = Object.keys(array)
    let incident;
-   let dangerLevel = ""
+
+   if (array === undefined) { console.error("undefined array in HelperFunction")}
  
    // loop through each item in the array to find the ones with danger level of "nivå" and "oransje"
    for (let i = 0; i < keyValues.length; i++)
@@ -17,7 +18,7 @@
      // example text that can be shown: "Kansellert Sterk ising på skip, oransje nivå, B4, 18 februar"
      dangerLevel = incident.textContent.split(",")[1]
      // check if the danger level includes "nivå" and "oransje"
-     if (dangerLevel.includes("nivå") && dangerLevel.includes("oransje"))
+     if (dangerLevel.includes("nivå") && dangerLevel.includes(dangerLevel))
      {
        sortedIncidents.push(array[keyValues[i]])
      }
