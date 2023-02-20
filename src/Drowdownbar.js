@@ -12,7 +12,7 @@ function DropdownSubmit(props) {
     selectOption.current = event.target.value
     props.dangerLevelFunc(selectOption.current)
   };
-  let selectOption = useRef("")
+  let selectOption = useRef("oransje")
 
 
   //run useEffect only once
