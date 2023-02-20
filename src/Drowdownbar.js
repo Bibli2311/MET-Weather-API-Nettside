@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-function DropdownSubmit() {
-  const [selectedOption, setSelectedOption] = useState('');
+function DropdownSubmit(props) {
+
+  //const [selectedOption, setSelectedOption] = useState('');
 
   const handleDropdownChange = (event) => {
-    console.log("from DORPDOWN: " + event.target.value)
-    setSelectedOption(event.target.value);
+    props.dangerLevelFunc(event.target.value)
+    //setSelectedOption(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -19,7 +20,7 @@ function DropdownSubmit() {
       <form onSubmit={handleSubmit}>
         <label>
           Select an option:
-          <select value={selectedOption} onChange={handleDropdownChange}>
+          <select value={""} onChange={handleDropdownChange}>
             <option value="">--Please choose an option--</option>
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>

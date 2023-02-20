@@ -9,6 +9,7 @@ import DropdownSubmit from "./Drowdownbar";
 
 function App() {
   const [incidentList, setWeatherIncident] = useState([])
+  const [dangerLevel, setDangerLevel] = useState("")
 
   useEffect(() => {
    
@@ -30,12 +31,16 @@ function App() {
       })
       
     }, [])
+    useEffect(() =>
+    {
+        console.log("from APP.js: " + dangerLevel)
+    }, [dangerLevel])
    
 
   return (
     <div>
       {incidentList}
-      <DropdownSubmit></DropdownSubmit>
+      <DropdownSubmit dangerLevelFunc={setDangerLevel}></DropdownSubmit>
     </div>
 
   );
