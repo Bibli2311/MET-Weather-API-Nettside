@@ -3,6 +3,8 @@ import WeatherIncident from "./WeatherIncident";
 import { sortByDangerLevel } from "./HelperFunctions";
 import { fetchData } from "./HelperFunctions";
 
+import DropdownSubmit from "./Drowdownbar";
+
 
 
 function App() {
@@ -10,7 +12,7 @@ function App() {
 
   useEffect(() => {
    
-    fetchData("https://api.met.no/weatherapi/metalerts/1.1?show=all")
+    fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
     .then((xmlData) =>
     {
         let tmp = xmlData
@@ -33,7 +35,9 @@ function App() {
   return (
     <div>
       {incidentList}
+      <DropdownSubmit></DropdownSubmit>
     </div>
+
   );
 }
 
