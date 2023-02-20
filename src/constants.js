@@ -15,4 +15,6 @@ const eventValues = [
     "lightning"
   ]
 
-export {dangerLevelValues, eventValues}
+const eventTypeURL = "https://api.met.no/weatherapi/metalerts/1.1/precipitation&event="
+
+export {dangerLevelValues, eventValues, eventTypeURL}

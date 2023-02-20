@@ -5,7 +5,7 @@ import { fetchData } from "./HelperFunctions";
 
 import DropdownSubmit from "./Drowdownbar";
 
-import { dangerLevelValues } from "./constants";
+import { dangerLevelValues, eventTypeURL } from "./constants";
 
 
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
@@ -22,16 +22,17 @@ function createIncidentList(incidentList)
 function App() {
   const [incidentList, setWeatherIncident] = useState([])
   const [dangerLevel, setDangerLevel] = useState("")
+  const [eventType, setEventType] = useState("wind")
 
-  let xmlFetchedData = useRef("")
+  let showAllXMLData = useRef("")
   useEffect(() => {
    
     fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
     .then((xmlData) =>
     {
-        xmlFetchedData.current = xmlData.getElementsByTagName("item");
+        showAllXMLData.current = xmlData.getElementsByTagName("item");
 
-        let incidents = sortByDangerLevel(xmlFetchedData.current, "oransje");
+        let incidents = sortByDangerLevel(showAllXMLData.current, "oransje");
         setWeatherIncident(createIncidentList(incidents))
       })
       
@@ -39,7 +40,7 @@ function App() {
     useEffect(() =>
     {
       //Retrieve danger levels with updated dangerLevel from user from drop down menu
-      let updatedIncidents = sortByDangerLevel(xmlFetchedData.current, dangerLevel)
+      let updatedIncidents = sortByDangerLevel(showAllXMLData.current, dangerLevel)
       let incidentList = createIncidentList(updatedIncidents)
 
       if (incidentList.length === 0)
@@ -52,6 +53,15 @@ function App() {
       }
       
     }, [dangerLevel])
+
+    useEffect(() =>
+    {
+      fetchData(eventTypeURL)
+      .then(value =>
+      {
+        
+      })
+    }, [eventType])
    
 
   return (
