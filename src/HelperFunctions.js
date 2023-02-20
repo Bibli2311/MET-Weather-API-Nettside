@@ -25,7 +25,7 @@
    return sortedIncidents
  }
 
- async function fetchData(url)
+async function fetchData(url)
 {
   const headers = new Headers();
   headers.append('User-Agent', "MyTestApp/0.1 oscar.vagle@yahoo.no")
@@ -47,5 +47,5 @@
   }
 }
 
-module.exports = {sortByDangerLevel, fetchData}
+export {sortByDangerLevel, fetchData}
 

@@ -16,7 +16,6 @@ function App() {
     fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
     .then((xmlData) =>
     {
-        let tmp = xmlData
         let titleArray = xmlData.getElementsByTagName("item");
         console.log(titleArray);
         let orangeIncidents = sortByDangerLevel(titleArray);
@@ -39,8 +38,9 @@ function App() {
 
   return (
     <div>
-      {incidentList}
       <DropdownSubmit dangerLevelFunc={setDangerLevel}></DropdownSubmit>
+      {incidentList}
+      
     </div>
 
   );
