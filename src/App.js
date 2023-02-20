@@ -31,13 +31,6 @@ function App() {
 
         let incidents = sortByDangerLevel(xmlFetchedData.current, "oransje");
         setWeatherIncident(createIncidentList(incidents))
-        let tmpIncidentList = [];
-  
-        // loop through each incident to extract the node content and add it to the nodes array
-        incidents.forEach((value, index) => {
-            tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>);
-        });
-        //setWeatherIncident(tmpIncidentList);
       })
       
     }, [])
