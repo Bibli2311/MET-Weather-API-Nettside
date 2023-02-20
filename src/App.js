@@ -24,6 +24,8 @@ function App() {
   const [dangerLevel, setDangerLevel] = useState("")
   const [eventType, setEventType] = useState("wind")
 
+  //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
+  //Has the parameter ?show=all
   let showAllXMLData = useRef("")
   useEffect(() => {
    
