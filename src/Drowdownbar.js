@@ -16,9 +16,9 @@ function DropdownSubmit(props) {
           Select an option:
           <select value={""} onChange={handleDropdownChange}>
             <option value="">--Please choose an option--</option>
-            <option value="gult">Option 1</option>
-            <option value="oransje">Option 2</option>
-            <option value="rødt">Option 3</option>
+            <option value="gult">Gult</option>
+            <option value="oransje">Oransje</option>
+            <option value="rødt">Rødt</option>
           </select>
     </div>
   );
