@@ -6,19 +6,20 @@
    let sortedIncidents = []
    let keyValues = Object.keys(array)
    let incident;
+   let currentDangerLevel = ""
 
    if (array === undefined) { console.error("undefined array in HelperFunction")}
  
    // loop through each item in the array to find the ones with danger level of "nivå" and "oransje"
    for (let i = 0; i < keyValues.length; i++)
    {    
-     incident = array[keyValues[i]].getElementsByTagName("title")[0]
+    incident = array[keyValues[i]].getElementsByTagName("title")[0]
  
      // get the danger level from the title element
      // example text that can be shown: "Kansellert Sterk ising på skip, oransje nivå, B4, 18 februar"
-     dangerLevel = incident.textContent.split(",")[1]
+     currentDangerLevel = incident.textContent.split(",")[1]
      // check if the danger level includes "nivå" and "oransje"
-     if (dangerLevel.includes("nivå") && dangerLevel.includes(dangerLevel))
+     if (currentDangerLevel.includes("nivå") && currentDangerLevel.includes(dangerLevel))
      {
        sortedIncidents.push(array[keyValues[i]])
      }
