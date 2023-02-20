@@ -38,7 +38,7 @@ function App() {
     {
       //Retrieve danger levels with updated dangerLevel from user from drop down menu
       let updatedIncidents = sortByDangerLevel(xmlFetchedData.current, dangerLevel)
-      console.log(updatedIncidents)
+      setWeatherIncident(createIncidentList(updatedIncidents))
     }, [dangerLevel])
    
 
