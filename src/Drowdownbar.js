@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef} from 'react';
 
 function DropdownSubmit(props) {
 
@@ -9,9 +9,10 @@ function DropdownSubmit(props) {
     {
         console.error("Cannot retrieve React hook from prop. Look at the prop name when Dropdownbar is rendered.")
     }
-
-    props.dangerLevelFunc(event.target.value)
+    selectOption.current = event.target.value
+    props.dangerLevelFunc(selectOption.current)
   };
+  let selectOption = useRef("")
 
 
   //run useEffect only once
@@ -30,7 +31,7 @@ function DropdownSubmit(props) {
 
   return (
     <div>
-          <select value={""} onChange={handleDropdownChange}>
+          <select value={selectOption.current} onChange={handleDropdownChange}>
             {optionTags}
           </select>
     </div>
