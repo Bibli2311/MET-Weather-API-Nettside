@@ -6,6 +6,7 @@ import { fetchData } from "./HelperFunctions";
 import DropdownSubmit from "./Drowdownbar";
 
 import { dangerLevelValues, eventTypeURL } from "./constants";
+import { create } from "react-test-renderer";
 
 
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
@@ -27,6 +28,7 @@ function App() {
   //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
   //Has the parameter ?show=all
   let showAllXMLData = useRef("")
+  let eventXMLData = useRef("")
   useEffect(() => {
    
     fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
@@ -61,7 +63,14 @@ function App() {
       fetchData(eventTypeURL)
       .then(value =>
       {
-        
+        eventXMLData.current = value.getElementsByTagName("item")
+        let eventArray = []
+        let keyValues = Object.keys(eventXMLData.current)
+        for (let i = 0; i < keyValues; i++)
+        {
+          eventArray.push(eventXMLData.current[keyValues[i]])
+        }
+        setEventType(createIncidentList(eventArray))
       })
     }, [eventType])
    

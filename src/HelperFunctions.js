@@ -1,6 +1,4 @@
-
-
- // function that sorts an array of items by danger level
+// function that sorts an array of items by danger level
  function sortByDangerLevel(array, dangerLevel) 
  {
    let sortedIncidents = []
