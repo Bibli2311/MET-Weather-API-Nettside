@@ -30,7 +30,6 @@ function DropdownSubmit(props) {
 
   return (
     <div>
-          Select an option:
           <select value={""} onChange={handleDropdownChange}>
             {optionTags}
           </select>

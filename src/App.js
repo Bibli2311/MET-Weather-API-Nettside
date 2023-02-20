@@ -56,6 +56,7 @@ function App() {
 
   return (
     <div>
+      Velg faresignal (gult, oransje eller rødt)
       <DropdownSubmit dangerLevelFunc={setDangerLevel} valuesOfDangerLevel={dangerLevelValues}></DropdownSubmit>
       {incidentList}
       
