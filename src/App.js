@@ -70,7 +70,7 @@ function App() {
         {
           eventArray.push(eventXMLData.current[keyValues[i]])
         }
-        setEventType(createIncidentList(eventArray))
+        setWeatherIncident(createIncidentList(eventArray))
       })
     }, [eventType])
    
