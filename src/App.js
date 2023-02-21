@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 import WeatherIncident from "./WeatherIncident";
 import { sortByDangerLevel } from "./HelperFunctions";
 import { fetchData } from "./HelperFunctions";
@@ -6,6 +6,12 @@ import { translateEventTypes } from "./HelperFunctions";
 import DropdownSubmit from "./Drowdownbar";
 import { dangerLevelValues, eventTypeURL, eventValues } from "./constants";
 
+const initialState = 
+{
+  htmlData: <p>{"trykk på drop down meny"}</p>
+}
+
+let xmlReducerData;
 
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
 function createIncidentList(incidentList)
@@ -20,10 +26,41 @@ function createIncidentList(incidentList)
   return tmpIncidentList
 }
 
+function handleDropDown(state, action)
+{
+    switch(action.type)
+    {
+      case "faresignal":
+      {
+        fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
+        .then((xmlData) =>
+        {
+          xmlReducerData = xmlData.getElementsByTagName("item");
+  
+          let incidents = sortByDangerLevel(xmlReducerData, "gult");
+          let htmlOfIncidents = createIncidentList(incidents)
+          return { htmlData: htmlOfIncidents }
+        })
+          break;
+      }
+      case "type av værehendelse":
+        console.log("coming soon")
+        break;
+      default:
+        console.error("invalid action type in reducer")
+        return initialState
+    }
+  }
+
 function App() {
+  
+
+  const [dropDownState, dispatch] = useReducer(handleDropDown, initialState)
   const [incidentList, setWeatherIncident] = useState([])
   const [dangerLevel, setDangerLevel] = useState("")
   const [eventType, setEventType] = useState("vind")
+
+  
 
   //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
   //Has the parameter ?show=all
@@ -84,9 +121,17 @@ function App() {
   return (
     <div>
       Velg faresignal (gult, oransje eller rødt)
-      <DropdownSubmit reactHook={setDangerLevel} valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
+      <DropdownSubmit reactHook=
+      {
+        () => 
+        {
+            dispatch({ type: "faresignal"})
+        }
+      } valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
       Hent værhendelser etter type (blowing snow, forest fire, ice osv.)
       <DropdownSubmit reactHook={setEventType} valuesOfSelectTag={eventValues}></DropdownSubmit>
+      useREducer:
+      {dropDownState.htmlData}
       {incidentList}
       
     </div>

@@ -10,7 +10,8 @@ function DropdownSubmit(props)
         console.error("Cannot retrieve React hook from prop. Look at the prop name when Dropdownbar is rendered.")
     }
     selectOption.current = event.target.value
-    props.reactHook(selectOption.current)
+    props.reactHook()
+    //props.reactHook(selectOption.current)
   };
   let selectOption = useRef(props.valuesOfSelectTag[0])
 
