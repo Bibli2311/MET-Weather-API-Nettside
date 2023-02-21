@@ -12,9 +12,11 @@ import { dangerLevelValues, eventTypeURL, eventValues } from "./constants";
 function createIncidentList(incidentList)
 {
   let tmpIncidentList = []
+  let element;
   incidentList.forEach((value, index) => 
   {
-    tmpIncidentList.push(<WeatherIncident key={index} sortedIncident={value}></WeatherIncident>);
+    element = <WeatherIncident key={index} sortedIncident={value}></WeatherIncident>
+    tmpIncidentList.push(element);
   });
   return tmpIncidentList
 }
@@ -61,18 +63,21 @@ function App() {
 
     //useEffect for setting event type (wind, snow etc.)
     useEffect(() =>
-    {
-      let url = eventTypeURL + eventValues[0]
+    {      
+      let url = eventTypeURL + eventType
       fetchData(url)
       .then(value =>
       {
         eventXMLData.current = value.getElementsByTagName("item")
         let eventArray = []
         let keyValues = Object.keys(eventXMLData.current)
-        for (let i = 0; i < keyValues; i++)
+        let titleTag;
+        for (let i = 0; i < keyValues.length; i++)
         {
+          titleTag = eventXMLData.current[keyValues[i]].getElementsByTagName("title")[0]
           eventArray.push(eventXMLData.current[keyValues[i]])
         }
+        console.log(eventArray)
         setWeatherIncident(createIncidentList(eventArray))
       })
     }, [eventType])
@@ -82,6 +87,7 @@ function App() {
     <div>
       Velg faresignal (gult, oransje eller rødt)
       <DropdownSubmit reactHook={setDangerLevel} valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
+      <DropdownSubmit reactHook={setEventType} valuesOfSelectTag={eventValues}></DropdownSubmit>
       {incidentList}
       
     </div>
