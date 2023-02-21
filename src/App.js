@@ -28,24 +28,30 @@ function createIncidentList(incidentList)
 
 function handleDropDown(state, action)
 {
-    let xmlReducerData;
+    let dropDownXMLData;
     switch(action.type)
     {
       case "faresignal":
       {
-        xmlReducerData = action.xmlData.getElementsByTagName("item")
-        let incidents = sortByDangerLevel(xmlReducerData, action.parameter); 
+        // An object of every weather forecast is retrieved by getting all the "<item>" tags
+        // from the XML data. All "<item>" tags represents one weather forecast.
+        dropDownXMLData = action.xmlData.getElementsByTagName("item")
+        // The XML data is filtered by a danger level ("gult", "oranje" or "rødt")
+        // with the "action.parameter" variable.
+        let incidents = sortByDangerLevel(dropDownXMLData, action.parameter); 
         let htmlOfIncidents = createIncidentList(incidents)
         return { htmlData: htmlOfIncidents }
       }
       case "type av værehendelse":
-        xmlReducerData = action.xmlData.getElementsByTagName("item")
+        // each <item> tag from the XML data represents one weather forecast from the API.
+        dropDownXMLData = action.xmlData.getElementsByTagName("item")
         let eventArray = []
 
-        let keyValues = Object.keys(xmlReducerData)
+        let keyValues = Object.keys(dropDownXMLData)
+        // Looping through "xmlReduceData" 
         for (let i = 0; i < keyValues.length; i++)
         {
-          eventArray.push(xmlReducerData[keyValues[i]])
+          eventArray.push(dropDownXMLData[keyValues[i]])
         }
         let htmlOfIncidents = createIncidentList(eventArray)
         return { htmlData: htmlOfIncidents }        
