@@ -116,7 +116,6 @@ function App() {
       <DropdownSubmit reactHook={setDangerLevel} valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
       Hent værhendelser etter type (blowing snow, forest fire, ice osv.)
       <DropdownSubmit reactHook={setEventType} valuesOfSelectTag={eventValues}></DropdownSubmit>
-      useREducer:
       {dropDownState.htmlData}
       
     </div>

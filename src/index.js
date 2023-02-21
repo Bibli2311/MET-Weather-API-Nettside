@@ -8,7 +8,6 @@ import Counter from "./Counter"
 const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
-    <Counter></Counter>
     <App />
     
     </StrictMode>
