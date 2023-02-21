@@ -5,12 +5,12 @@ function DropdownSubmit(props) {
 
   const [optionTags, setOptionTags] = useState([])
   const handleDropdownChange = (event) => {
-    if (props.dangerLevelFunc === undefined || props.valuesOfDangerLevel === undefined)
+    if (props.reactHook === undefined || props.valuesOfSelectTag === undefined)
     {
         console.error("Cannot retrieve React hook from prop. Look at the prop name when Dropdownbar is rendered.")
     }
     selectOption.current = event.target.value
-    props.dangerLevelFunc(selectOption.current)
+    props.reactHook(selectOption.current)
   };
   let selectOption = useRef("oransje")
 
@@ -19,7 +19,7 @@ function DropdownSubmit(props) {
   useEffect(() =>
   {
     let tmpOptionTag = []
-    props.valuesOfDangerLevel.map(value =>
+    props.valuesOfSelectTag.map(value =>
     {
         tmpOptionTag.push(
           <option key={value} value={value}>{value}</option>

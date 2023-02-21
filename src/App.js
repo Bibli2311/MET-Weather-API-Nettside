@@ -5,8 +5,7 @@ import { fetchData } from "./HelperFunctions";
 
 import DropdownSubmit from "./Drowdownbar";
 
-import { dangerLevelValues, eventTypeURL } from "./constants";
-import { create } from "react-test-renderer";
+import { dangerLevelValues, eventTypeURL, eventValues } from "./constants";
 
 
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
@@ -28,7 +27,9 @@ function App() {
   //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
   //Has the parameter ?show=all
   let showAllXMLData = useRef("")
+  //Saving XML data for event types
   let eventXMLData = useRef("")
+
   useEffect(() => {
    
     fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
@@ -58,9 +59,11 @@ function App() {
       
     }, [dangerLevel])
 
+    //useEffect for setting event type (wind, snow etc.)
     useEffect(() =>
     {
-      fetchData(eventTypeURL)
+      let url = eventTypeURL + eventValues[0]
+      fetchData(url)
       .then(value =>
       {
         eventXMLData.current = value.getElementsByTagName("item")
@@ -78,7 +81,7 @@ function App() {
   return (
     <div>
       Velg faresignal (gult, oransje eller rødt)
-      <DropdownSubmit dangerLevelFunc={setDangerLevel} valuesOfDangerLevel={dangerLevelValues}></DropdownSubmit>
+      <DropdownSubmit reactHook={setDangerLevel} valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
       {incidentList}
       
     </div>
