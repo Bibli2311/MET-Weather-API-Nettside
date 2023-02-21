@@ -72,10 +72,8 @@ function App() {
         eventXMLData.current = value.getElementsByTagName("item")
         let eventArray = []
         let keyValues = Object.keys(eventXMLData.current)
-        let titleTag;
         for (let i = 0; i < keyValues.length; i++)
         {
-          titleTag = eventXMLData.current[keyValues[i]].getElementsByTagName("title")[0]
           eventArray.push(eventXMLData.current[keyValues[i]])
         }
         setWeatherIncident(createIncidentList(eventArray))
