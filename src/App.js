@@ -72,8 +72,6 @@ function App() {
   //Creating this reference since it is useful to save it if the user changes danger level.
   //If user changes it then saved data can be filtered instead of sending another request to the API.
   let showAllXMLData = useRef("")
-  //Saving XML data for event types
-  let eventXMLData = useRef("")
 
     useEffect(() =>
     {
@@ -116,8 +114,6 @@ function App() {
       fetchData(url)
       .then(fetchedXMLData =>
       {
-        //updating this reference for now.
-        eventXMLData.current = fetchedXMLData.getElementsByTagName("item")
         dispatch(
           {
             type: "type av værehendelse",
