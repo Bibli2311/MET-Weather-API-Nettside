@@ -33,9 +33,8 @@ function handleDropDown(state, action)
     {
       case "faresignal":
       {
-        let incidents = ""
         xmlReducerData = action.xmlData.getElementsByTagName("item")
-        incidents = sortByDangerLevel(xmlReducerData, action.chosenDangerLevel); 
+        let incidents = sortByDangerLevel(xmlReducerData, action.chosenDangerLevel); 
         let htmlOfIncidents = createIncidentList(incidents)
         return { htmlData: htmlOfIncidents }
       }
@@ -70,6 +69,9 @@ function App() {
       .then((xmlData) =>
       {
         showAllXMLData.current = xmlData
+        // XML data ("showAllXMLData") and the danger level is passed inside the
+        // parameter as an action. This is used in the reducer to sort incidents based on
+        // danger level.
         dispatch(
           {
             type: "faresignal",
