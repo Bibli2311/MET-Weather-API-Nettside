@@ -14,6 +14,7 @@ const initialState =
 
 
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
+// The function assumes that the parameter is an array.
 function createIncidentList(incidentList)
 {
   let tmpIncidentList = []
@@ -48,7 +49,7 @@ function handleDropDown(state, action)
         let eventArray = []
 
         let keyValues = Object.keys(dropDownXMLData)
-        // Looping through "xmlReduceData" 
+        // Looping through "dropDownXMLData" to create an array of its elements.
         for (let i = 0; i < keyValues.length; i++)
         {
           eventArray.push(dropDownXMLData[keyValues[i]])
@@ -62,8 +63,6 @@ function handleDropDown(state, action)
   }
 
 function App() {
-  
-
   const [dropDownState, dispatch] = useReducer(handleDropDown, initialState)
   const [dangerLevel, setDangerLevel] = useState("gult")
   const [eventType, setEventType] = useState("vind")
@@ -78,13 +77,26 @@ function App() {
 
     useEffect(() =>
     {
-      fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
-      .then((xmlData) =>
+      if (showAllXMLData.current === "")
       {
-        showAllXMLData.current = xmlData
-        // XML data ("showAllXMLData") and the danger level is passed inside the
-        // parameter as an action. This is used in the reducer to sort incidents based on
-        // danger level.
+        fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
+        .then((xmlData) =>
+        {
+          showAllXMLData.current = xmlData
+          // XML data ("showAllXMLData") and the danger level is passed inside the
+          // parameter as an action. This is used in the reducer to sort incidents based on
+          // danger level.
+          dispatch(
+            {
+              type: "faresignal",
+              xmlData: showAllXMLData.current,
+              parameter: dangerLevel
+            }
+          )
+        })
+      }
+      else
+      {
         dispatch(
           {
             type: "faresignal",
@@ -92,7 +104,8 @@ function App() {
             parameter: dangerLevel
           }
         )
-      })
+      }
+      
       
     }, [dangerLevel])
 
