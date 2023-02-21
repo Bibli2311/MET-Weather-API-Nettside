@@ -34,13 +34,21 @@ function handleDropDown(state, action)
       case "faresignal":
       {
         xmlReducerData = action.xmlData.getElementsByTagName("item")
-        let incidents = sortByDangerLevel(xmlReducerData, action.chosenDangerLevel); 
+        let incidents = sortByDangerLevel(xmlReducerData, action.parameter); 
         let htmlOfIncidents = createIncidentList(incidents)
         return { htmlData: htmlOfIncidents }
       }
       case "type av værehendelse":
-        console.log("coming soon")
-        break;
+        xmlReducerData = action.xmlData.getElementsByTagName("item")
+        let eventArray = []
+
+        let keyValues = Object.keys(xmlReducerData)
+        for (let i = 0; i < keyValues.length; i++)
+        {
+          eventArray.push(xmlReducerData[keyValues[i]])
+        }
+        let htmlOfIncidents = createIncidentList(eventArray)
+        return { htmlData: htmlOfIncidents }        
       default:
         console.error("invalid action type in reducer")
         return initialState
@@ -76,7 +84,7 @@ function App() {
           {
             type: "faresignal",
             xmlData: showAllXMLData.current,
-            chosenDangerLevel: dangerLevel
+            parameter: dangerLevel
           }
         )
       })
@@ -88,16 +96,25 @@ function App() {
     {      
       let url = eventTypeURL + translateEventTypes(eventType)
       fetchData(url)
-      .then(value =>
+      .then(fetchedXMLData =>
       {
-        eventXMLData.current = value.getElementsByTagName("item")
-        let eventArray = []
+        //updating this reference for now.
+        eventXMLData.current = fetchedXMLData.getElementsByTagName("item")
+        dispatch(
+          {
+            type: "type av værehendelse",
+            xmlData: fetchedXMLData,
+            parameter: eventType
+          }
+        )
+
+        /*let eventArray = []
         let keyValues = Object.keys(eventXMLData.current)
         for (let i = 0; i < keyValues.length; i++)
         {
           eventArray.push(eventXMLData.current[keyValues[i]])
         }
-        setWeatherIncident(createIncidentList(eventArray))
+        setWeatherIncident(createIncidentList(eventArray))*/
       })
     }, [eventType])
    
