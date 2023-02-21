@@ -3,7 +3,6 @@ function WeatherIncident(props)
     let pTags = []
 
     let apiData = Array.from(props.sortedIncident.childNodes)
-    console.log(typeof(props.sortedIncident))
 
     apiData.forEach((htmlElement) => 
     {

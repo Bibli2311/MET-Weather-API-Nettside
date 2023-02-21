@@ -33,7 +33,6 @@ function App() {
   let eventXMLData = useRef("")
 
   useEffect(() => {
-   
     fetchData("http://api.met.no/weatherapi/metalerts/1.1?show=all")
     .then((xmlData) =>
     {
@@ -77,7 +76,6 @@ function App() {
           titleTag = eventXMLData.current[keyValues[i]].getElementsByTagName("title")[0]
           eventArray.push(eventXMLData.current[keyValues[i]])
         }
-        console.log(eventArray)
         setWeatherIncident(createIncidentList(eventArray))
       })
     }, [eventType])
