@@ -59,7 +59,6 @@ function App() {
   
 
   const [dropDownState, dispatch] = useReducer(handleDropDown, initialState)
-  const [incidentList, setWeatherIncident] = useState([])
   const [dangerLevel, setDangerLevel] = useState("gult")
   const [eventType, setEventType] = useState("vind")
 
@@ -107,14 +106,6 @@ function App() {
             parameter: eventType
           }
         )
-
-        /*let eventArray = []
-        let keyValues = Object.keys(eventXMLData.current)
-        for (let i = 0; i < keyValues.length; i++)
-        {
-          eventArray.push(eventXMLData.current[keyValues[i]])
-        }
-        setWeatherIncident(createIncidentList(eventArray))*/
       })
     }, [eventType])
    
