@@ -11,8 +11,6 @@ const initialState =
   htmlData: <p>{"trykk på drop down meny"}</p>
 }
 
-
-
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
 // The function assumes that the parameter is an array.
 function createIncidentList(incidentList)
@@ -124,7 +122,6 @@ function App() {
       })
     }, [eventType])
    
-
   return (
     <div>
       Velg faresignal (gult, oransje eller rødt)
