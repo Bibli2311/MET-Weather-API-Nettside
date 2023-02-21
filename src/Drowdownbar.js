@@ -12,7 +12,7 @@ function DropdownSubmit(props)
     selectOption.current = event.target.value
     props.reactHook(selectOption.current)
   };
-  let selectOption = useRef("oransje")
+  let selectOption = useRef(props.valuesOfSelectTag[0])
 
   useEffect(() =>
   {

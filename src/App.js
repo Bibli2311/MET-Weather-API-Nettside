@@ -39,7 +39,7 @@ function App() {
     {
         showAllXMLData.current = xmlData.getElementsByTagName("item");
 
-        let incidents = sortByDangerLevel(showAllXMLData.current, "oransje");
+        let incidents = sortByDangerLevel(showAllXMLData.current, "gult");
         setWeatherIncident(createIncidentList(incidents))
       })
       
