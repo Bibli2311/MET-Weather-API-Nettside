@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import WeatherIncident from "./WeatherIncident";
 import { sortByDangerLevel } from "./HelperFunctions";
 import { fetchData } from "./HelperFunctions";
+import { translateEventTypes } from "./HelperFunctions";
 import DropdownSubmit from "./Drowdownbar";
 import { dangerLevelValues, eventTypeURL, eventValues } from "./constants";
 
@@ -22,7 +23,7 @@ function createIncidentList(incidentList)
 function App() {
   const [incidentList, setWeatherIncident] = useState([])
   const [dangerLevel, setDangerLevel] = useState("")
-  const [eventType, setEventType] = useState("wind")
+  const [eventType, setEventType] = useState("vind")
 
   //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
   //Has the parameter ?show=all
@@ -63,7 +64,8 @@ function App() {
     //useEffect for setting event type (wind, snow, ice etc.)
     useEffect(() =>
     {      
-      let url = eventTypeURL + eventType
+      let url = eventTypeURL + translateEventTypes(eventType)
+      console.log(eventType)
       fetchData(url)
       .then(value =>
       {
@@ -85,6 +87,7 @@ function App() {
     <div>
       Velg faresignal (gult, oransje eller rødt)
       <DropdownSubmit reactHook={setDangerLevel} valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
+      Hent værhendelser etter type (blowing snow, forest fire, ice osv.)
       <DropdownSubmit reactHook={setEventType} valuesOfSelectTag={eventValues}></DropdownSubmit>
       {incidentList}
       

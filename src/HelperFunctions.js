@@ -46,5 +46,38 @@ async function fetchData(url)
   }
 }
 
-export {sortByDangerLevel, fetchData}
+function translateEventTypes(event)
+{
+  switch(event)
+  {
+    case "snøflokk":
+      return "blowingSnow"
+    case "skogbrann":
+      return "forestFire"
+    case "kuling":
+      return "gale"
+    case "is":
+      return "ice"
+    case "ising":
+      return "icing"
+    case "polart lavtrykk":
+      return "polarLow"
+    case "regn":
+      return "rain"
+    case "regnflod":
+      return "rainFlood"
+    case "snø":
+        return "snow"
+    case "stormflo":
+      return "stormSurge"
+    case "vind":
+      return "wind"
+    case "torden":
+      return "lightning"
+    default:
+      console.error(`${event} is not a valid event type in translation function`)
+  }
+}
+
+export {sortByDangerLevel, fetchData, translateEventTypes}
 
