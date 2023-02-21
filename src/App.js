@@ -33,8 +33,9 @@ function handleDropDown(state, action)
     {
       case "faresignal":
       {
+        let incidents = ""
         xmlReducerData = action.xmlData.getElementsByTagName("item")
-        let incidents = sortByDangerLevel(xmlReducerData, "oransje");
+        incidents = sortByDangerLevel(xmlReducerData, action.chosenDangerLevel); 
         let htmlOfIncidents = createIncidentList(incidents)
         return { htmlData: htmlOfIncidents }
       }
@@ -52,7 +53,7 @@ function App() {
 
   const [dropDownState, dispatch] = useReducer(handleDropDown, initialState)
   const [incidentList, setWeatherIncident] = useState([])
-  const [dangerLevel, setDangerLevel] = useState("")
+  const [dangerLevel, setDangerLevel] = useState("gult")
   const [eventType, setEventType] = useState("vind")
 
   //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
@@ -72,7 +73,8 @@ function App() {
         dispatch(
           {
             type: "faresignal",
-            xmlData: showAllXMLData.current
+            xmlData: showAllXMLData.current,
+            chosenDangerLevel: dangerLevel
           }
         )
       })
