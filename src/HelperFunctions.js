@@ -30,7 +30,6 @@ async function fetchData(url)
   const headers = new Headers();
   headers.append('User-Agent', "MyTestApp/0.1 oscar.vagle@yahoo.no")
 
-
   try
   {
     const resp = await fetch(url, headers);

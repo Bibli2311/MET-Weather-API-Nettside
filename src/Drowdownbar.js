@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect, useState, useRef} from 'react';
 
-function DropdownSubmit(props) {
-
+function DropdownSubmit(props) 
+{
   const [optionTags, setOptionTags] = useState([])
   const handleDropdownChange = (event) => {
     if (props.reactHook === undefined || props.valuesOfSelectTag === undefined)
@@ -14,8 +14,6 @@ function DropdownSubmit(props) {
   };
   let selectOption = useRef("oransje")
 
-
-  //run useEffect only once
   useEffect(() =>
   {
     let tmpOptionTag = []
@@ -26,7 +24,7 @@ function DropdownSubmit(props) {
         )
     })
     setOptionTags(tmpOptionTag)
-  }, [])
+  }, [])   //run useEffect only once
 
 
   return (

@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import WeatherIncident from "./WeatherIncident";
 import { sortByDangerLevel } from "./HelperFunctions";
 import { fetchData } from "./HelperFunctions";
-
 import DropdownSubmit from "./Drowdownbar";
-
 import { dangerLevelValues, eventTypeURL, eventValues } from "./constants";
 
 
@@ -28,6 +26,8 @@ function App() {
 
   //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
   //Has the parameter ?show=all
+  //Creating this reference since it is useful to save it if the user changes danger level.
+  //If user changes it then saved data can be filtered instead of sending another request to the API.
   let showAllXMLData = useRef("")
   //Saving XML data for event types
   let eventXMLData = useRef("")
@@ -60,7 +60,7 @@ function App() {
       
     }, [dangerLevel])
 
-    //useEffect for setting event type (wind, snow etc.)
+    //useEffect for setting event type (wind, snow, ice etc.)
     useEffect(() =>
     {      
       let url = eventTypeURL + eventType
