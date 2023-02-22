@@ -10,6 +10,20 @@ I tillegg kan brukeren sortere værhendelser etter værtype som værvarsler som 
  <img alt="image of website" src="https://oscarstoreimages.blob.core.windows.net/oscarimagecontainer/enkelt bilde nettside.PNG">
 </picture>
 
+### Use case
+
+**Sorter data etter faresignal (oransje-, rødt-, eller gult faresignal)**
+
+<picture>
+ <img alt="image of website where danger level chosen" src="https://oscarstoreimages.blob.core.windows.net/oscarimagecontainer/danger level valgt.PNG">
+</picture>
+
+**Sortere data etter type av værhendelser (snø, is, vind osv.)**
+
+<picture>
+ <img alt="image of website where danger level chosen" src="https://oscarstoreimages.blob.core.windows.net/oscarimagecontainer/værhendelse type valgt.PNG" width="1000" height="200">
+</picture>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
