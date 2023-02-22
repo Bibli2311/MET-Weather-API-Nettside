@@ -168,8 +168,8 @@ function App() {
       <DropdownSubmit 
         reactHook={setDangerLevel} changeBoldStyle={setBoldTxt} userActionDesc={changeDangerLevel} valuesOfSelectTag={dangerLevelValues}>
       </DropdownSubmit>
-      Hent værhendelser etter type (blowing snow, forest fire, ice osv.)
-      <DropdownSubmit reactHook={setEventType} valuesOfSelectTag={eventValues}></DropdownSubmit>
+      <p style={boldStyle[1]}>Hent værhendelser etter type (vind, snø, is osv.)</p>
+      <DropdownSubmit reactHook={setEventType} changeBoldStyle={setBoldTxt} userActionDesc={setWeatherForecastType} valuesOfSelectTag={eventValues}></DropdownSubmit>
       {dropDownState.htmlData}
       
     </div>
