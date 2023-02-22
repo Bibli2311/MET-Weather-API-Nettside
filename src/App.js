@@ -60,10 +60,38 @@ function handleDropDown(state, action)
     }
   }
 
+// returns an object representing CSS style for changing bold text.
+// Change bold text for either set danger level or for filter weather forecast by type.
+function setBoldStyleReducer(state, action)
+{
+  switch(action.type)
+  {
+    case "set danger level":
+      action.hook([
+        {fontWeight: "bold"},
+        {fontWeight: "normal"}
+      ])
+      break;
+    case "set weather forecast type":
+      action.hook([
+        {fontWeight: "normal"},
+        {fontWeight: "bold"}
+      ])
+      break;
+    default:
+      console.error("invalid action description in reducer for setting text bold")
+  }
+}
+
 function App() {
   const [dropDownState, dispatch] = useReducer(handleDropDown, initialState)
   const [dangerLevel, setDangerLevel] = useState("gult")
   const [eventType, setEventType] = useState("vind")
+  const [reducerBold, boldDispatch] = useReducer(setBoldStyleReducer, {
+      dangerLevelIsSet: false,
+      weatherForecastType: false
+  })
+
   const [isBold, setBoldTxt] = useState(
     {
       dangerLevelIsSet: false,
@@ -166,7 +194,8 @@ function App() {
     <div>
       <p style={boldStyle[0]}>Velg faresignal (gult, oransje eller rødt)</p>
       <DropdownSubmit 
-        reactHook={setDangerLevel} changeBoldStyle={setBoldTxt} userActionDesc={changeDangerLevel} valuesOfSelectTag={dangerLevelValues}>
+        reactHook={setDangerLevel} changeBoldStyle={setBoldTxt} userActionDesc={changeDangerLevel} valuesOfSelectTag={dangerLevelValues}
+        reducerHook={boldDispatch} boldHook={setBoldStyle}>
       </DropdownSubmit>
       <p style={boldStyle[1]}>Hent værhendelser etter type (vind, snø, is osv.)</p>
       <DropdownSubmit reactHook={setEventType} changeBoldStyle={setBoldTxt} userActionDesc={setWeatherForecastType} valuesOfSelectTag={eventValues}></DropdownSubmit>
