@@ -35,7 +35,6 @@ function DropdownSubmit(props)
       default:
         console.error("no valid user action description is passed to Dropdownbar component")
     }
-    
   };
   let selectOption = useRef(props.valuesOfSelectTag[0])
 

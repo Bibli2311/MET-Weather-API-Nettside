@@ -6,6 +6,10 @@ Den henter data fra MET Weather API-en og viser det fram.
 Brukeren kan sortere værhendelser etter faresignal som oransje, gult eller rødt faresignal.
 I tillegg kan brukeren sortere værhendelser etter værtype som værvarsler som er knyttet til regn, is, snø, vind osv.
 
+<picture>
+ <img alt="image of website" src="https://oscarstoreimages.blob.core.windows.net/oscarimagecontainer/enkelt bilde nettside.PNG">
+</picture>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
