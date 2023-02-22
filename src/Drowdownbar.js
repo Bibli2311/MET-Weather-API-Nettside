@@ -13,32 +13,27 @@ function DropdownSubmit(props)
     selectOption.current = event.target.value
     props.reactHook(selectOption.current)
 
-    if (props.reducerHook !== undefined)
-    {
-      switch(props.userActionDesc)
-      {
-        case changeDangerLevel:
-        props.reducerHook(
-          {
-            type: "set danger level",
-            hook: props.boldHook
-          }
-        )
 
-        //props.changeBoldStyle(changeDangerLevel)
-        break;
+    switch(props.userActionDesc)
+    {
+      case changeDangerLevel:
+      props.reducerHook(
+        {
+          type: "set danger level",
+          hook: props.boldHook
+        }
+      )
+      break;
       case setWeatherForecastType:
         props.reducerHook(
-          {
-            type: "set weather forecast type",
-            hook: props.boldHook
-          }
+        {
+          type: "set weather forecast type",
+          hook: props.boldHook
+        }
         )
-        //props.changeBoldStyle(setWeatherForecastType)
         break;
       default:
         console.error("no valid user action description is passed to Dropdownbar component")
-    }
     }
     
   };

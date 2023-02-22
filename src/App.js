@@ -198,7 +198,10 @@ function App() {
         reducerHook={boldDispatch} boldHook={setBoldStyle}>
       </DropdownSubmit>
       <p style={boldStyle[1]}>Hent værhendelser etter type (vind, snø, is osv.)</p>
-      <DropdownSubmit reactHook={setEventType} changeBoldStyle={setBoldTxt} userActionDesc={setWeatherForecastType} valuesOfSelectTag={eventValues}></DropdownSubmit>
+      <DropdownSubmit reactHook={setEventType} changeBoldStyle={setBoldTxt} userActionDesc={setWeatherForecastType} 
+      valuesOfSelectTag={eventValues} reducerHook={boldDispatch} boldHook={setBoldStyle}>
+
+      </DropdownSubmit>
       {dropDownState.htmlData}
       
     </div>
