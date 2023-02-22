@@ -64,6 +64,24 @@ function App() {
   const [dropDownState, dispatch] = useReducer(handleDropDown, initialState)
   const [dangerLevel, setDangerLevel] = useState("gult")
   const [eventType, setEventType] = useState("vind")
+  const [isBold, setBoldTxt] = useState(
+    {
+      dangerLevelIsSet: false,
+      weatherForecastType: false
+    }
+  )
+  // first index shows CSS style for text description when user chooses danger level.
+  // The second index of array shows CSS style for text when user filters weather forecast by type.
+  const [boldStyle, setBoldStyle] = useState(
+    [
+      {
+        fontWeight: "normal"
+      },
+      {
+        fontWeight: "normal"
+      }
+    ]
+  )
 
   //The variable name has "showAll" since the URL used is http://api.met.no/weatherapi/metalerts/1.1?show=all which
   //Has the parameter ?show=all
@@ -121,10 +139,32 @@ function App() {
         )
       })
     }, [eventType])
+
+    useEffect(() =>
+    {
+      if (isBold.dangerLevelIsSet)
+      {
+
+          // Set bold text for description when user selects danger level
+          setBoldStyle( [
+            {fontWeight: "bold"},
+            {fontWeight: "normal"}
+          ])
+      }
+      else if (isBold.weatherForecastType)
+      {
+        // Set bold text for description when user filters by weather forecast type
+        setBoldStyle( [
+          {fontWeight: "normal"},
+          {fontWeight: "bold"}
+        ])
+      }
+
+    }, [isBold])
    
   return (
     <div>
-      Velg faresignal (gult, oransje eller rødt)
+      <p style={{fontWeight: boldStyle[0]}}>Velg faresignal (gult, oransje eller rødt)</p>
       <DropdownSubmit reactHook={setDangerLevel} valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
       Hent værhendelser etter type (blowing snow, forest fire, ice osv.)
       <DropdownSubmit reactHook={setEventType} valuesOfSelectTag={eventValues}></DropdownSubmit>
