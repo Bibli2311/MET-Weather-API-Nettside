@@ -1,6 +1,16 @@
 const dangerLevelValues = ["gult", "oransje", "rødt"]
 
+const changeDangerLevel = 
+{
+  dangerLevelIsSet: true,
+  weatherForecastType: false
+}
 
+const setWeatherForecastType =
+{
+  dangerLevelIsSet: false,
+  weatherForecastType: true
+}
 
 const eventValues = [
     "snøflokk",
@@ -35,4 +45,4 @@ const eventValues = [
 
 const eventTypeURL = "https://api.met.no/weatherapi/metalerts/1.1/precipitation&event="
 
-export {dangerLevelValues, eventValues, eventTypeURL}
+export {dangerLevelValues, eventValues, eventTypeURL, changeDangerLevel, setWeatherForecastType}

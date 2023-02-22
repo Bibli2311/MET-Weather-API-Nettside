@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useRef} from 'react';
+import { changeDangerLevel, setWeatherForecastType} from './constants'
 
 function DropdownSubmit(props) 
 {
@@ -11,6 +12,18 @@ function DropdownSubmit(props)
     }
     selectOption.current = event.target.value
     props.reactHook(selectOption.current)
+
+    switch(props.userActionDesc)
+    {
+      case changeDangerLevel:
+        props.changeBoldStyle(changeDangerLevel)
+        break;
+      case setWeatherForecastType:
+        props.changeBoldStyle(setWeatherForecastType)
+        break;
+      default:
+        console.error("no valid user action description is passed to Dropdownbar component")
+    }
   };
   let selectOption = useRef(props.valuesOfSelectTag[0])
 

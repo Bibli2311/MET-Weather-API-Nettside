@@ -4,7 +4,7 @@ import { sortByDangerLevel } from "./HelperFunctions";
 import { fetchData } from "./HelperFunctions";
 import { translateEventTypes } from "./HelperFunctions";
 import DropdownSubmit from "./Drowdownbar";
-import { dangerLevelValues, eventTypeURL, eventValues } from "./constants";
+import { dangerLevelValues, eventTypeURL, eventValues, changeDangerLevel, setWeatherForecastType } from "./constants";
 
 const initialState = 
 {
@@ -164,8 +164,10 @@ function App() {
    
   return (
     <div>
-      <p style={{fontWeight: boldStyle[0]}}>Velg faresignal (gult, oransje eller rødt)</p>
-      <DropdownSubmit reactHook={setDangerLevel} valuesOfSelectTag={dangerLevelValues}></DropdownSubmit>
+      <p style={boldStyle[0]}>Velg faresignal (gult, oransje eller rødt)</p>
+      <DropdownSubmit 
+        reactHook={setDangerLevel} changeBoldStyle={setBoldTxt} userActionDesc={changeDangerLevel} valuesOfSelectTag={dangerLevelValues}>
+      </DropdownSubmit>
       Hent værhendelser etter type (blowing snow, forest fire, ice osv.)
       <DropdownSubmit reactHook={setEventType} valuesOfSelectTag={eventValues}></DropdownSubmit>
       {dropDownState.htmlData}
