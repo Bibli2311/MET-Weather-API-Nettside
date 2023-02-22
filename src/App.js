@@ -11,6 +11,13 @@ const initialState =
   htmlData: <p>{"trykk på drop down meny"}</p>
 }
 
+const initialBoldStyle =
+{
+  dangerLevelIsSet: false,
+  weatherForecastType: false
+}
+
+
 //creates <WeatherIncident> component for every weather incident from parameter "incidentList"
 // The function assumes that the parameter is an array.
 function createIncidentList(incidentList)
@@ -87,17 +94,7 @@ function App() {
   const [dropDownState, dispatch] = useReducer(handleDropDown, initialState)
   const [dangerLevel, setDangerLevel] = useState("gult")
   const [eventType, setEventType] = useState("vind")
-  const [reducerBold, boldDispatch] = useReducer(setBoldStyleReducer, {
-      dangerLevelIsSet: false,
-      weatherForecastType: false
-  })
-
-  const [isBold, setBoldTxt] = useState(
-    {
-      dangerLevelIsSet: false,
-      weatherForecastType: false
-    }
-  )
+  const [reducerBold, boldDispatch] = useReducer(setBoldStyleReducer, initialBoldStyle)
   // first index shows CSS style for text description when user chooses danger level.
   // The second index of array shows CSS style for text when user filters weather forecast by type.
   const [boldStyle, setBoldStyle] = useState(
@@ -167,38 +164,16 @@ function App() {
         )
       })
     }, [eventType])
-
-    useEffect(() =>
-    {
-      if (isBold.dangerLevelIsSet)
-      {
-
-          // Set bold text for description when user selects danger level
-          setBoldStyle( [
-            {fontWeight: "bold"},
-            {fontWeight: "normal"}
-          ])
-      }
-      else if (isBold.weatherForecastType)
-      {
-        // Set bold text for description when user filters by weather forecast type
-        setBoldStyle( [
-          {fontWeight: "normal"},
-          {fontWeight: "bold"}
-        ])
-      }
-
-    }, [isBold])
    
   return (
     <div>
       <p style={boldStyle[0]}>Velg faresignal (gult, oransje eller rødt)</p>
       <DropdownSubmit 
-        reactHook={setDangerLevel} changeBoldStyle={setBoldTxt} userActionDesc={changeDangerLevel} valuesOfSelectTag={dangerLevelValues}
+        dangerLevelHook={setDangerLevel} userActionDesc={changeDangerLevel} valuesOfSelectTag={dangerLevelValues}
         reducerHook={boldDispatch} boldHook={setBoldStyle}>
       </DropdownSubmit>
       <p style={boldStyle[1]}>Hent værhendelser etter type (vind, snø, is osv.)</p>
-      <DropdownSubmit reactHook={setEventType} changeBoldStyle={setBoldTxt} userActionDesc={setWeatherForecastType} 
+      <DropdownSubmit dangerLevelHook={setEventType} userActionDesc={setWeatherForecastType} 
       valuesOfSelectTag={eventValues} reducerHook={boldDispatch} boldHook={setBoldStyle}>
 
       </DropdownSubmit>
