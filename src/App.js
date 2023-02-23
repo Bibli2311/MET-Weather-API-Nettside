@@ -46,6 +46,8 @@ function handleDropDown(state, action)
         // with the "action.parameter" variable.
         let incidents = sortByDangerLevel(dropDownXMLData, action.parameter); 
         let htmlOfIncidents = createIncidentList(incidents)
+        console.log(htmlOfIncidents)
+        
         return { htmlData: htmlOfIncidents }
       }
       case "type av værehendelse":
@@ -185,3 +187,4 @@ function App() {
 }
 
 export default App
+export {handleDropDown, setBoldStyleReducer}
