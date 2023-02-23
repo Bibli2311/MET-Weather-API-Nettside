@@ -1,4 +1,9 @@
 import { render } from '@testing-library/react'
+import React from 'react'
+import ReactDOM  from 'react'
+import TestRenderer from 'react-test-renderer'
+
+
 import {handleDropDown} from './App'
 
 let yellowDangerLevelData =
@@ -43,8 +48,18 @@ test('check if correct data is rendered', () =>
         parameter: "gult"
     }
 
-    let result = handleDropDown(null, anAction)
-    let r = render(render.htmlData)
+    let result = handleDropDown(null, anAction);
+    let r = React.createElement(result.htmlData);
+    let rWithParent = React.createElement('div', null, result.htmlData);
+
+    console.log(`value: ${result.htmlData[0]}\ntype: ${typeof(result.htmlData[0])}`)
+
+
+    let testRenderer = TestRenderer.create(rWithParent);
+    let rendered = testRenderer.toJSON();
+    console.log(rendered);
+    
+    
     console.log(r)
     expect(r).toBe(1)
 
